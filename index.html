@@ -1,10 +1,13 @@
 %%[
 var @firstName
+VAR @text 
+SET @text = "Hello, world!"
 set @firstName = RequestParameter('fname')
 
 if Empty(@firstName) then
 set @firstName = 'there'
 endif
+
 ]%%
 <!doctype html>
 <html lang="en">
@@ -22,8 +25,7 @@ endif
     <p> how long do github pages take to update?</p>
     <p>Hello %%=v(@firstName)=%%!<p>
         <p>Life if fine.</p>
-        <p>%%[ VAR @text
-          SET @text = "Hello, world!"
+        <p>%%[          
           Output(v(@text))]%%</p>
   </div>
   <script src="js/main.js"></script>
