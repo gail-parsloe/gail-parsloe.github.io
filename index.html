@@ -1,6 +1,8 @@
 %%[
 var @firstName
 VAR @text 
+var @region = '2'
+var @greeting = 'grr...'
 SET @text = "Hello, world!"
 set @firstName = RequestParameter('fname')
 
@@ -37,17 +39,27 @@ endif -->
           Output(v(@text))]%%</p>
   </div>
   <script runat=server language=ampscript>
-    IF @region == '1' THEN
+    IF Empty(@firstName) THEN
        SET @greeting = 'Bonjour!'
-    ELSEIF @region == '2' THEN
-       SET @greeting = 'Hola!'
-    ELSE
-       SET @greeting = 'Hi!'
-    ENDIF
- </script>
+  </script>
     <script runat=client >
-      console.log('hello');
+      console.log('hello' + " " + '%%=LOWERCASE(@greeting)=%%');
       </script>
+
+<!-- debug blog: https://sfmarketing.cloud/2019/08/09/debugging-ampscript/ -->
+
+<script runat="server">
+  Platform.Load("Core","1.1.1");
+  try{
+  </script>
+  
+  %%[ LOWERCASE(@firstName)  ]%%
+  
+  <script runat="server">
+  }catch(e){
+   Write(Stringify(e));
+  }
+  </script>
   <!-- <script src="js/main.js"></script> -->
 </body>
 
