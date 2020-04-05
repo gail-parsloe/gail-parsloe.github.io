@@ -4,9 +4,9 @@ VAR @text
 SET @text = "Hello, world!"
 set @firstName = RequestParameter('fname')
 
-if Empty(@firstName) then
+<!-- if Empty(@firstName) then
 set @firstName = 'there'
-endif
+endif -->
 
 ]%%
 <!doctype html>
@@ -36,9 +36,15 @@ endif
         <p>%%[          
           Output(v(@text))]%%</p>
   </div>
-  <!-- <script runat=server language=ampscript>
-    console.log('hello');
-    </script> -->
+  <script runat=server language=ampscript>
+    IF @region == '1' THEN
+       SET @greeting = 'Bonjour!'
+    ELSEIF @region == '2' THEN
+       SET @greeting = 'Hola!'
+    ELSE
+       SET @greeting = 'Hi!'
+    ENDIF
+ </script>
     <script runat=client >
       console.log('hello');
       </script>
