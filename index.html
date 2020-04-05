@@ -1,6 +1,6 @@
 %%[
 var @firstName
-VAR @text 
+VAR @text
 var @region = '2'
 var @greeting = 'grr...'
 SET @text = "Hello, world!"
@@ -29,37 +29,44 @@ endif -->
     <h3> AMPscript tag:</h3>
     <script runat=server language=ampscript>
       console.log('inside body log statement');
-      </script>
+    </script>
 
-      
+
     <p> how long do github pages take to update?</p>
     <p>Hello %%=v(@firstName)=%%!<p>
         <p>Life if fine...</p>
-        <p>%%[          
+        <p>%%[
           Output(v(@text))]%%</p>
   </div>
   <script runat=server language=ampscript>
     IF Empty(@firstName) THEN
-       SET @greeting = 'Bonjour!'
+    SET @greeting = 'Bonjour!'
   </script>
-    <script runat=client >
-      console.log('hello' + " " + '%%=LOWERCASE(@greeting)=%%');
-      </script>
-
-<!-- debug blog: https://sfmarketing.cloud/2019/08/09/debugging-ampscript/ -->
-
-<script runat="server">
-  Platform.Load("Core","1.1.1");
-  try{
+  <script runat=client>
+    console.log('hello' + " " + '%%=LOWERCASE(@greeting)=%%');
   </script>
-  
-  %%[ your AMPscript block goes here  ]%%
-  
+
+  <!-- debug blog: https://sfmarketing.cloud/2019/08/09/debugging-ampscript/ -->
+
   <script runat="server">
-  }catch(e){
-   Write(Stringify(e));
-  }
-  </script>
+    Platform.Load("Core","1.1.1");
+    try{
+    </script>
+    
+    %%[ set @regionNotExist='should generate an error' ]%%
+     
+    <script runat="server">
+    }
+    catch(e) {
+     Variable.SetValue("errorMessage", Stringify(e.message) + Stringify(e.description));
+    }
+    </script>
+     
+    <script runat="client">
+    console.log(`%%=v(@errorMessage)=%%`);
+    </script>
+
+<!-- END debug blog: https://sfmarketing.cloud/2019/08/09/debugging-ampscript/ -->
   <!-- <script src="js/main.js"></script> -->
 </body>
 
